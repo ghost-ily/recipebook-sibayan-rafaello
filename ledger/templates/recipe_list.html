@@ -1,1 +1,19 @@
-Hello, I am {{ name }}.
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<h3>Recipe Book</h3>
+	</head>
+	<body>
+		{% for recipe in recipes %}
+			<p>{{ recipe.name }}</p>
+			<p>Ingredients</p>
+			{% for item in recipe.ingredients %}
+				<ul>
+					<li>{{ item.name }}, {{ item.quantity }}</li>
+				</ul>
+			{% endfor %}
+			<p>Link to recipe: {{ recipe.link }} </p>
+		{% endfor %}
+	</body>
+</html>
