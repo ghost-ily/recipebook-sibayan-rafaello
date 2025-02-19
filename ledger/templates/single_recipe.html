@@ -1,0 +1,16 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<h2>Recipe Book</h2>
+	</head>
+	<body>
+		<p>{{ name }}</p>
+		{% for item in ingredients %}
+			<ul>
+				<li> {{item.name}}, {{item.quantity}} </li>
+			</ul>
+		{% endfor %}
+		<p> <a href="{{ link }}">Link to recipe</a> </p>
+	</body>
+</html>
