@@ -5,15 +5,12 @@
 		<h2>Recipe Book</h2>
 	</head>
 	<body>
-		{% for recipe in recipes %}
-			<p><h3>{{ recipe.name }}</h4></p>
-			<p>Ingredients</p>
-			{% for item in recipe.ingredients %}
-				<ul>
-					<li>{{ item.name }}, {{ item.quantity }}</li>
-				</ul>
-			{% endfor %}
-			<p><a href="{{ recipe.link }}">Link to recipe</a> </p>
+		{% for recipe in object_list %}
+			<ul>
+				<li>
+					<p><h3>{{ recipe.name }}</h4></p>
+				</li>
+			</ul>
 		{% endfor %}
 	</body>
 </html>

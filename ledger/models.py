@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=100)
@@ -7,7 +8,7 @@ class Ingredient(models.Model):
         return self.name
         
     def get_absolute_url(self):
-        return reverse()
+        return reverse('recipe_list', args=[str(self.name)])
     
 class Recipe(models.Model):
     name = models.CharField(max_length=100)
@@ -16,7 +17,7 @@ class Recipe(models.Model):
         return self.name
         
     def get_absolute_url(self):
-        return reverse()
+        return reverse('recipe_list', args=[str(self.name)])
     
 class RecipeIngredient(models.Model):
     quantity = models.PositiveSmallIntegerField()
