@@ -1,11 +1,16 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from django.http import HttpResponse
 from .models import Recipe
 
 class RecipeListView(ListView):
     model = Recipe
     template_name = 'recipe_list.html'
+    
+class RecipeDetailView(DetailView):
+    model = Recipe
+    template_name = 'recipe_detail.html'
 '''
 def recipe_list(request):
     ctx = {
@@ -73,7 +78,7 @@ def recipe_list(request):
         ]
     }
     return render(request, 'recipe_list.html', ctx)
-'''
+
 def recipe_1(request):
     ctx = {
         "name": "Recipe 1",
@@ -101,7 +106,7 @@ def recipe_1(request):
         ],
         "link": "/recipe/1"
     }
-    return render(request, 'single_recipe.html', ctx)
+    return render(request, 'recipe_detail.html', ctx)
     
 def recipe_2(request):
     ctx = {
@@ -138,6 +143,6 @@ def recipe_2(request):
         ],
         "link": "/recipe/2"
     }
-    return render(request, 'single_recipe.html', ctx)
-    
+    return render(request, 'recipe_detail.html', ctx)
+''' 
     
