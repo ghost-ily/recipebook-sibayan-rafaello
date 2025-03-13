@@ -1,12 +1,18 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
 
-from .models import Recipe
-
-
-class RecipeAdmin(admin.ModelAdmin):
-    model = Recipe
-
-    search_fields = ('name', )
+from .models import Profile
 
 
-admin.site.register(Recipe, RecipeAdmin)
+class ProfileInline(admin.StackedInline):
+    model = Profile
+    can_delete = False
+    
+
+class UserAdmin(UserAdmin):
+    inlines = [ProfileInline, ]
+    
+    
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
