@@ -14,3 +14,6 @@ class RecipeDetailView(LoginRequiredMixin, DetailView):
     login_url = "http://localhost:8000/accounts/login/"
     model = Recipe
     template_name = 'recipe_detail.html'
+    
+
+    
