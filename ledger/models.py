@@ -17,7 +17,7 @@ class Recipe(models.Model):
     name = models.CharField(max_length=100)
     author = models.CharField(max_length=100)
     createdOn = models.DateTimeField(
-            auto_now_add=True, 
+            auto_now_add=True,
             null=True
         )
     updatedOn = models.DateTimeField(auto_now=True)
