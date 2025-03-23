@@ -120,6 +120,8 @@ LOGIN_REDIRECT_URL = "http://localhost:8000/recipe/list"
 
 LOGOUT_REDIRECT_URL = "http://localhost:8000/accounts/login"
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
