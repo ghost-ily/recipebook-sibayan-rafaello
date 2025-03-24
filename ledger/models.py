@@ -13,9 +13,24 @@ class Ingredient(models.Model):
         return reverse('recipe_detail')
 
 
+class Profile(models.Model):
+    user = models.OneToOneField(
+            User, 
+            on_delete=models.CASCADE,
+            primary_key=True,
+        )
+    name = models.CharField(max_length=50)
+    bio = models.CharField(max_length=300)
+
+
 class Recipe(models.Model):
     name = models.CharField(max_length=100)
-    author = models.CharField(max_length=100)
+    author = models.ForeignKey(
+            Profile,
+            on_delete=models.CASCADE,
+            null=True,
+            related_name="author"
+        )
     createdOn = models.DateTimeField(
             auto_now_add=True,
             null=True
@@ -45,9 +60,3 @@ class RecipeIngredient(models.Model):
             null=True,
             related_name='ingredients'
         )
-
-
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50)
-    bio = models.CharField(max_length=300)
