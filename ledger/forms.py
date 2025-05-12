@@ -1,13 +1,14 @@
-from django.db import models
-from django.forms import ModelForm, CharField
-from ledger.models import Recipe
-from django.utils.translation import gettext_lazy as _
+from django import forms, formset_factory
+from .models import Recipe, Ingredient
 
 
-class AddRecipeForm(ModelForm):
-    class Meta:
-        model = Recipe
-        fields = ["name"]
-        labels = {
-            "name": _("Recipe Name"),
-        }
+class NewRecipeForm(forms.Form):
+    name = forms.CharField(label='Recipe Name', max_length=100)
+
+  
+class IngredientForm(forms.Form):
+    quantity = forms.CharField(label='Quantity', max_length=10)
+    ingredient = forms.CharField(label='Ingredient', max_length=100)
+
+
+IngredientFormSet = formset_factory(IngredientForm)
