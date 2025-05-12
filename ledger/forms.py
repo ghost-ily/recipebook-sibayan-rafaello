@@ -1,4 +1,5 @@
-from django import forms, formset_factory
+from django import forms
+from django.forms import formset_factory
 from .models import Recipe, Ingredient
 
 
@@ -7,8 +8,7 @@ class NewRecipeForm(forms.Form):
 
   
 class IngredientForm(forms.Form):
+    name = forms.CharField(label='Ingredient', max_length=100)
     quantity = forms.CharField(label='Quantity', max_length=10)
-    ingredient = forms.CharField(label='Ingredient', max_length=100)
-
 
 IngredientFormSet = formset_factory(IngredientForm)

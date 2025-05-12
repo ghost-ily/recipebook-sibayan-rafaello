@@ -3,7 +3,9 @@
 {% block content %}
 	<form method="post">
 		{% csrf_token %}
-		{{ form }}
-		<input type="submit" value="Submit">
+		{{ recipeform.as_p }}
+		{{ ingredientform.as_p }}
+		<input type="submit" value="Add Ingredient">
+		<input type="submit" value="Submit Recipe">
 	</form>
 {% endblock %}
