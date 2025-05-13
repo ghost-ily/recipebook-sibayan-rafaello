@@ -19,7 +19,7 @@ class RecipeDetailView(LoginRequiredMixin, DetailView):
     template_name = 'recipe_detail.html'
 
 
-
+@login_required
 def add_recipe(request):
     ingredientform = IngredientFormSet()
     recipeform = NewRecipeForm()
