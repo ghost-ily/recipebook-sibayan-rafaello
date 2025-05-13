@@ -37,16 +37,15 @@ def add_recipe(request):
             r.author = Profile.objects.get(name__exact=user)
             r.save()
             
-            i = Ingredient()
-            ingredientName = ingredientform.cleaned_data.get('name')
-            i = ingredientName
-            i.save()
-            
-            ri = RecipeIngredient()
-            ri.quantity = ingredientform.cleaned_data.get('quantity')
-            ri.ingredient = Ingredient.objects.get(name__exact="ingredientName")
-            ri.recipe = Recipe.objects.get(name__exact="recipeName")
-            ri.save()
+            for form in ingredientform:
+                ingredientName = form.cleaned_data.get('name')
+                obj, created = Ingredient.objects.get_or_create(name=ingredientName)
+                
+                ri = RecipeIngredient()
+                ri.quantity = form.cleaned_data.get('quantity')
+                ri.ingredient = Ingredient.objects.get(name=ingredientName)
+                ri.recipe = Recipe.objects.get(name=recipeName)
+                ri.save()
             
     else:
         ingredientform = ()
