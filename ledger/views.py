@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
 from django.contrib.auth.decorators import login_required
-from .models import Recipe, Ingredient, RecipeIngredient
+from .models import Recipe, Ingredient, RecipeIngredient, Profile
 from .forms import NewRecipeForm, IngredientFormSet
 
 
@@ -33,7 +33,8 @@ def add_recipe(request):
             r = Recipe()
             recipeName = recipeform.cleaned_data.get('name')
             r.name = recipeName
-            r.author = request.user.get_profile()
+            user = request.user.get_username()
+            r.author = Profile.objects.get(name__exact=user)
             r.save()
             
             i = Ingredient()

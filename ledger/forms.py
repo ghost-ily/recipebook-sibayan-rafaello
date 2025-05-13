@@ -11,4 +11,4 @@ class IngredientForm(forms.Form):
     name = forms.CharField(label='Ingredient', max_length=100)
     quantity = forms.CharField(label='Quantity', max_length=10)
 
-IngredientFormSet = formset_factory(IngredientForm)
+IngredientFormSet = formset_factory(IngredientForm, extra=4)
