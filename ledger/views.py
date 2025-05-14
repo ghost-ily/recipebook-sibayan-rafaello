@@ -39,6 +39,10 @@ def add_recipe(request):
             
             for form in ingredientform:
                 ingredientName = form.cleaned_data.get('name')
+                ingredientCount = form.cleaned_data.get('quantity')
+                if (ingredientName == None) or (ingredientCount == None):
+                    continue
+                ingredientName = ingredientName.lower()
                 obj, created = Ingredient.objects.get_or_create(name=ingredientName)
                 
                 ri = RecipeIngredient()
@@ -46,8 +50,5 @@ def add_recipe(request):
                 ri.ingredient = Ingredient.objects.get(name=ingredientName)
                 ri.recipe = Recipe.objects.get(name=recipeName)
                 ri.save()
-            
-    else:
-        ingredientform = ()
         
     return render(request, 'recipe_form.html', ctx)
