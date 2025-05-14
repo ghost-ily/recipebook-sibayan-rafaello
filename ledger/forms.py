@@ -12,3 +12,8 @@ class IngredientForm(forms.Form):
     quantity = forms.CharField(label='Quantity', max_length=50)
 
 IngredientFormSet = formset_factory(IngredientForm, extra=4)
+
+
+class ImageForm(forms.Form):
+    image = forms.ImageField()
+    alt = forms.CharField(label="Alt text", max_length=50)
