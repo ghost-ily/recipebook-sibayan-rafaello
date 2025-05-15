@@ -2,7 +2,9 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from .models import Recipe, Ingredient, RecipeIngredient, Profile, RecipeImage
 from .forms import NewRecipeForm, IngredientFormSet, ImageForm
@@ -55,33 +57,22 @@ def add_recipe(request):
 
 class AddImageView(LoginRequiredMixin, CreateView):
     model = RecipeImage
-    fields = ["file", "description"]
+    form_class = ImageForm
     template_name = "image_upload.html"
+    success_url = "recipe/{pk}"
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = ImageForm()
+        self.pk = self.kwargs['pk']
         return context
-        
-    def get_success_url(self):
-        return reverse_lazy('ledger:recipe_detail', kwargs={'pk':self.object.pk})
-        
-    def post(self, request, *args, **kwargs):
-        form = ImageForm(request.POST)
-        if form.is_valid():
-            img = RecipeImage()
-            img.file = form.FILES.get('image')
-            img.description = form.cleaned_data.get('alt')
-            id = self.kwargs['pk']
-            img.recipe = Recipe.objects.get(id)
-            img.save()
-            return self.get(request, *args, **kwargs)
-        else:
-            self.object_list = self.get_queryset(**kwargs)
-            context = self.get_success_url(**kwargs)
-            context['form'] = form
-            return self.render_to_response(context)
     
+    def form_valid(self, form):
+        pk = self.kwargs['pk']
+        form.instance.recipe = Recipe.objects.get(pk=pk)
+        form.save()
+        success_url = reverse_lazy("ledger:recipe_detail", kwargs={'pk': pk})
+        return redirect(success_url)
 
 
 def add_image(request, pk):

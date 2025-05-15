@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import formset_factory
-from .models import Recipe, Ingredient
+from .models import Recipe, Ingredient, RecipeImage
 
 
 class NewRecipeForm(forms.Form):
@@ -11,9 +11,10 @@ class IngredientForm(forms.Form):
     name = forms.CharField(label='Ingredient', max_length=100)
     quantity = forms.CharField(label='Quantity', max_length=50)
 
-IngredientFormSet = formset_factory(IngredientForm, extra=4)
+IngredientFormSet = formset_factory(IngredientForm, extra=7)
 
 
-class ImageForm(forms.Form):
-    image = forms.ImageField()
-    alt = forms.CharField(label="Alt text", max_length=50)
+class ImageForm(forms.ModelForm):
+    class Meta:
+        model = RecipeImage
+        fields = ['file', 'description']
