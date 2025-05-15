@@ -54,8 +54,8 @@ def add_recipe(request):
 
 
 class AddImageView(LoginRequiredMixin, CreateView):
-    model = Recipe
-    fields = ["name"]
+    model = RecipeImage
+    fields = ["file", "description"]
     template_name = "image_upload.html"
     
     def get_context_data(self, **kwargs):
@@ -64,7 +64,7 @@ class AddImageView(LoginRequiredMixin, CreateView):
         return context
         
     def get_success_url(self):
-        return reverse_lazy('ledger:image_add', kwargs={'pk':self.object.pk})
+        return reverse_lazy('ledger:recipe_detail', kwargs={'pk':self.object.pk})
         
     def post(self, request, *args, **kwargs):
         form = ImageForm(request.POST)
